@@ -1,1 +1,16 @@
-.HomeScreen {}
+.HomeScreen {
+}
+
+canvas {
+  outline: 1px solid red;
+}
+
+.listItem {
+  padding: 8px;
+  user-select: none;
+}
+
+.listItem--selected {
+  background: #F6B528;
+}
+
