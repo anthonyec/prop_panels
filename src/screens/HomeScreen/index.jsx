@@ -17,6 +17,14 @@ export default function HomeScreen() {
   const dispatch = useDispatch();
   const objectList = useSelector((state) => state.scene.objects);
   const selectedObjectIds = useSelector((state) => state.scene.selected);
+  const selectedObjects = useSelector((state) => {
+    return state.scene.selected.map((id) => {
+      return state.scene.objects.find((object) => object.id === id);
+    });
+  });
+
+  console.log(selectedObjects);
+
   const canvasRef = useRef(null);
 
   useEffect(() => {
@@ -71,6 +79,20 @@ export default function HomeScreen() {
     );
   });
 
+  const selections = selectedObjects.map((selectedObject, index) => {
+    console.log(selectedObject)
+    const style = {
+      left: selectedObject.props.x,
+      top: selectedObject.props.y,
+      width: selectedObject.props.width,
+      height: selectedObject.props.height
+    };
+
+    return (
+      <div className="selection" style={style} key={selectedObject.id} />
+    )
+  });
+
   return (
     <main className="HomeScreen">
       <button onClick={handleAddOnClick.bind(null, 'rectangle')}>
@@ -83,7 +105,8 @@ export default function HomeScreen() {
       <ol>{list}</ol>
 
       <div className="canvas">
-        <canvas onClick={handleCanvasClick} ref={canvasRef} width={500} height={500}></canvas>
+        <canvas onClick={handleCanvasClick} ref={canvasRef} width={500} height={500} />
+        {selections}
       </div>
     </main>
   );

@@ -7,12 +7,12 @@ const slice = createSlice({
     objects: []
   },
   reducers: {
-    singleSelectObject(state, action) {
-      state.selected = [action.payload];
+    singleSelectObject(state, { payload: id }) {
+      state.selected = [id];
     },
-    selectObject(state, action) {
-      if (!state.selected.includes(action.payload)) {
-        state.selected.push(action.payload);
+    selectObject(state, { payload: id }) {
+      if (!state.selected.includes(id)) {
+        state.selected.push(id);
       }
     },
     selectObjectsBetween(state, action) {
