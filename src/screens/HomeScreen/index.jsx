@@ -6,7 +6,8 @@ import {
   selectObject,
   deselectObject,
   selectObjectsBetween,
-  initializeScene
+  initializeScene,
+  addObjectToScene
 } from '../../store/scene';
 
 import './HomeScreen.css';
@@ -20,6 +21,10 @@ export default function HomeScreen() {
   useEffect(() => {
     dispatch(initializeScene(canvasRef.current));
   }, []);
+
+  const handleAddOnClick = (name) => {
+    dispatch(addObjectToScene(name));
+  };
 
   const handleItemOnClick = (id, selected, evt) => {
     if (evt.shiftKey) {
@@ -60,9 +65,14 @@ export default function HomeScreen() {
 
   return (
     <main className="HomeScreen">
+      <button onClick={handleAddOnClick.bind(null, 'rectangle')}>Add Rectangle</button>
+      <button onClick={handleAddOnClick.bind(null, 'circle')}>Add Circle</button>
+
       <ol>{list}</ol>
 
-      <canvas ref={canvasRef}></canvas>
+      <div className="canvas">
+        <canvas ref={canvasRef}></canvas>
+      </div>
     </main>
   );
 }

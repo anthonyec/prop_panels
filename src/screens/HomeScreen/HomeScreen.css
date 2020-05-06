@@ -1,8 +1,14 @@
 .HomeScreen {
 }
 
-canvas {
-  outline: 1px solid red;
+.canvas {
+  position: relative;
+  border: 1px solid red;
+}
+
+.canvas canvas {
+  width: 100%;
+  height: 100%;
 }
 
 .listItem {

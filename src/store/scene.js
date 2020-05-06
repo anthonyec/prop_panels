@@ -4,56 +4,7 @@ const slice = createSlice({
   name: 'scene',
   initialState: {
     selected: [],
-    objects: [
-      {
-        id: '1',
-        label: 'Rectangle'
-      },
-      {
-        id: '2',
-        label: 'Circle'
-      },
-      {
-        id: '3',
-        label: 'Triangle'
-      },
-      {
-        id: '4',
-        label: 'Rectangle'
-      },
-      {
-        id: '5',
-        label: 'Circle'
-      },
-      {
-        id: '6',
-        label: 'Triangle'
-      },
-      {
-        id: '7',
-        label: 'Rectangle'
-      },
-      {
-        id: '8',
-        label: 'Circle'
-      },
-      {
-        id: '9',
-        label: 'Triangle'
-      },
-      {
-        id: '10',
-        label: 'Rectangle'
-      },
-      {
-        id: '11',
-        label: 'Circle'
-      },
-      {
-        id: '12',
-        label: 'Triangle'
-      }
-    ]
+    objects: []
   },
   reducers: {
     singleSelectObject(state, action) {
@@ -90,7 +41,10 @@ const slice = createSlice({
       }
     },
     addObject(state, action) {},
-    removeObject(state, action) {}
+    removeObject(state, action) {},
+    setObjects(state, action) {
+      state.objects = [...action.payload];
+    }
   }
 });
 
@@ -98,12 +52,19 @@ export const selectObject = slice.actions.selectObject;
 export const deselectObject = slice.actions.deselectObject;
 export const singleSelectObject = slice.actions.singleSelectObject;
 export const selectObjectsBetween = slice.actions.selectObjectsBetween;
+export const setObjects = slice.actions.setObjects;
 
 export function initializeScene(canvas) {
   return (dispatch, getState, { scene }) => {
     scene.init({
       canvas
     });
+  };
+}
+
+export function addObjectToScene(name) {
+  return (dispatch, getState, { scene, components }) => {
+    scene.add(components[name]);
   };
 }
 
