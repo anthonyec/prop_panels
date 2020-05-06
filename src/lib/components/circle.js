@@ -4,12 +4,11 @@ export default {
     { id: 'radius', type: 'number', default: 50 },
     { id: 'color', type: 'color', default: 'blue' }
   ],
-  draw: ({ context, radius, color }) => {
-    const x = 0;
-    const y = 0;
-
+  draw: ({ context, x, y, radius, color }) => {
     context.fillStyle = color;
+    context.beginPath();
     context.arc(x + radius / 2, y + radius / 2, radius / 2, 0, 2 * Math.PI);
     context.fill();
+    context.closePath();
   }
-}
+};

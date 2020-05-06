@@ -34,30 +34,28 @@ export default class Scene extends Events {
     this.context = props.canvas.getContext('2d');
     this.displayList = [];
 
-    this.canvas.addEventListener('click', this.handleOnCanvasClick.bind(this));
-
     this.emit('init');
     this.update();
   }
 
-  add(displayObject) {
-    const defaultComponent = {
-      props: {
-        x: 0,
-        y: 0,
-        width: 300,
-        height: 200,
-        rotation: 0
-      },
-      draw: () => {}
+  add(displayObject, newProps = {}) {
+    const displayObjectProps = getPropsAsArguments(displayObject.props);
+    const props = {
+      x: 0,
+      y: 0,
+      width: 300,
+      height: 200,
+      rotation: 0,
+      ...displayObjectProps,
+      ...newProps
     };
 
     this.displayList.push({
       id: Date.now() + '' + Math.floor(Math.random() * 99),
       label: displayObject.name,
+      component: displayObject,
       visible: true,
-      component: defaultComponent,
-      ...displayObject
+      props
     });
 
     this.emit('display-list-update');
@@ -71,9 +69,9 @@ export default class Scene extends Events {
     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
     this.displayList.forEach((displayObject) => {
-      const defaultProps = getPropsAsArguments(displayObject.props);
+      const props = displayObject.props;
 
-      displayObject.draw({ context: this.context, ...defaultProps });
+      displayObject.component.draw({ context: this.context, ...props });
     });
 
     this.emit('draw');
@@ -91,21 +89,17 @@ export default class Scene extends Events {
     window.requestAnimationFrame(this.update.bind(this));
   }
 
-  handleOnCanvasClick(evt) {
-    const mouseX = evt.offsetX;
-    const mouseY = evt.offsetY;
-
-    console.log(this.displayList);
-
-    const items = this.displayList.filter((displayItem) => {
+  hit(hitX, hitY) {
+    const hitItems = this.displayList.filter((displayItem) => {
       const { x, y, width, height } = displayItem.props;
 
-      console.log(displayItem);
+      console.log(displayItem.props);
 
-      return( mouseX >= x && mouseY >= y) && (mouseX <= x + width && mouseY <= y + height);
+      return hitX >= x && hitY >= y && hitX <= x + width && hitY <= y + height;
     });
 
-    const top = items[items.length - 1];
-    console.log(items, mouseX, mouseY);
+    const topHitItem = hitItems[hitItems.length - 1];
+
+    return topHitItem;
   }
 }

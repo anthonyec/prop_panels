@@ -64,7 +64,20 @@ export function initializeScene(canvas) {
 
 export function addObjectToScene(name) {
   return (dispatch, getState, { scene, components }) => {
-    scene.add(components[name]);
+    scene.add(components[name], {
+      x: Math.random() * 500,
+      y: Math.random() * 500
+    });
+  };
+}
+
+export function selectObjectAtPoint(x, y) {
+  return (dispatch, getState, { scene, components }) => {
+    const object = scene.hit(x, y);
+
+    if (object) {
+      dispatch(singleSelectObject(object.id));
+    }
   };
 }
 

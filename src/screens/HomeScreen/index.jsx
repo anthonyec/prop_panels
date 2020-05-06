@@ -7,7 +7,8 @@ import {
   deselectObject,
   selectObjectsBetween,
   initializeScene,
-  addObjectToScene
+  addObjectToScene,
+  selectObjectAtPoint
 } from '../../store/scene';
 
 import './HomeScreen.css';
@@ -24,6 +25,13 @@ export default function HomeScreen() {
 
   const handleAddOnClick = (name) => {
     dispatch(addObjectToScene(name));
+  };
+
+  const handleCanvasClick = function (evt) {
+    const bounds = evt.target.getBoundingClientRect();
+    dispatch(
+      selectObjectAtPoint(evt.clientX - bounds.x, evt.clientY - bounds.y)
+    );
   };
 
   const handleItemOnClick = (id, selected, evt) => {
@@ -65,13 +73,17 @@ export default function HomeScreen() {
 
   return (
     <main className="HomeScreen">
-      <button onClick={handleAddOnClick.bind(null, 'rectangle')}>Add Rectangle</button>
-      <button onClick={handleAddOnClick.bind(null, 'circle')}>Add Circle</button>
+      <button onClick={handleAddOnClick.bind(null, 'rectangle')}>
+        Add Rectangle
+      </button>
+      <button onClick={handleAddOnClick.bind(null, 'circle')}>
+        Add Circle
+      </button>
 
       <ol>{list}</ol>
 
       <div className="canvas">
-        <canvas ref={canvasRef}></canvas>
+        <canvas onClick={handleCanvasClick} ref={canvasRef} width={500} height={500}></canvas>
       </div>
     </main>
   );

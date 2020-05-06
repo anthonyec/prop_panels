@@ -5,8 +5,8 @@ export default {
     { id: 'height', type: 'number', default: 50 },
     { id: 'color', type: 'color', default: 'red' }
   ],
-  draw: ({ context, width, height, color }) => {
+  draw: ({ context, x, y, width, height, color }) => {
     context.fillStyle = color;
-    context.fillRect(0, 0, width, height);
+    context.fillRect(x, y, width, height);
   }
 };

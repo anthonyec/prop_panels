@@ -1,4 +1,4 @@
-import { setObjects } from "./scene";
+import { setObjects } from './scene';
 
 export default function mapSceneToStore(scene, store) {
   scene.on('init', () => {
