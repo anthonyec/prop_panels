@@ -1,6 +1,8 @@
 export default {
   name: 'Circle',
   props: [
+    { id: 'width', type: 'number', default: 50 },
+    { id: 'height', type: 'number', default: 50 },
     { id: 'radius', type: 'number', default: 50 },
     { id: 'color', type: 'color', default: 'blue' }
   ],

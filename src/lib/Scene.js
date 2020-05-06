@@ -71,6 +71,8 @@ export default class Scene extends Events {
     this.displayList.forEach((displayObject) => {
       const props = displayObject.props;
 
+      this.context.strokeRect(props.x, props.y, props.width, props.height);
+      // this.context.strokeRect();
       displayObject.component.draw({ context: this.context, ...props });
     });
 
