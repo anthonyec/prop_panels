@@ -95,7 +95,6 @@ export function selectObjectAtPoint(x, y) {
   };
 }
 
-
 export function updateObjectProps(id, prop) {
   return (dispatch, getState, { scene, components }) => {
     if (!prop.value) {

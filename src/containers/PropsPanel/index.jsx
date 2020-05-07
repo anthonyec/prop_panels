@@ -21,13 +21,12 @@ function selectSelectedObjects(state) {
   });
 }
 
-
 export default function PropsPanel() {
   const dispatch = useDispatch();
 
   const objects = useSelector(selectSelectedObjects);
 
-  const handlePropValueUpdate = function(prop, object, evt) {
+  const handlePropValueUpdate = function (prop, object, evt) {
     const value = evt.target.value;
     dispatch(updateObjectProps(object.id, { id: prop.id, value: value }));
   };
@@ -41,12 +40,20 @@ export default function PropsPanel() {
       return (
         <div key={prop.id}>
           <label>{prop.id}</label>
-          <input type={type} defaultValue={object.props[prop.id]} onChange={handlePropValueUpdate.bind(null, prop, object)} />
+          <input
+            type={type}
+            defaultValue={object.props[prop.id]}
+            onChange={handlePropValueUpdate.bind(null, prop, object)}
+          />
         </div>
       );
     });
 
-    return <div className="props" key={object.id}>{propComponents}</div>
+    return (
+      <div className="props" key={object.id}>
+        {propComponents}
+      </div>
+    );
   });
 
   return (

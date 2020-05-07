@@ -15,7 +15,7 @@ export default {
     { id: 't', type: 'number', default: 0.5 },
     { id: 'color', type: 'color', default: 'rgba(0, 0, 0, 1)' }
   ],
-  draw: ({ context, x, y, width, height, rings = 1, color, t = 0.5}) => {
+  draw: ({ context, x, y, width, height, rings = 1, color, t = 0.5 }) => {
     const cx = width / 2;
     const cy = height / 2;
 
@@ -49,4 +49,4 @@ export default {
 
     // context.setTransform(1, 0, 0, 1, 0, 0);
   }
-}
+};
