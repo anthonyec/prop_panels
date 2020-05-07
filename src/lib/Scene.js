@@ -85,7 +85,20 @@ export default class Scene extends Events {
     this.displayList.forEach((displayObject) => {
       const props = displayObject.props;
 
-      displayObject.component.draw({ context: this.context, ...props });
+      const bufferCanvas = document.createElement('canvas');
+      const bufferContext = bufferCanvas.getContext('2d');
+
+      bufferContext.canvas.width = props.width;
+      bufferContext.canvas.height = props.height;
+
+      displayObject.component.draw({
+        context: bufferContext,
+        ...props,
+        x: 0,
+        y: 0
+      });
+
+      this.context.drawImage(bufferCanvas, props.x, props.y);
     });
 
     this.emit('draw');
