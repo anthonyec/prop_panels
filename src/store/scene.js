@@ -46,6 +46,9 @@ const slice = createSlice({
         delete state.selected[index];
       }
     },
+    deselectAllOjects(state) {
+      state.selected = [];
+    },
     addObject(state, action) {},
     removeObject(state, action) {},
     setObjects(state, action) {
@@ -59,6 +62,7 @@ export const deselectObject = slice.actions.deselectObject;
 export const singleSelectObject = slice.actions.singleSelectObject;
 export const selectObjectsBetween = slice.actions.selectObjectsBetween;
 export const setObjects = slice.actions.setObjects;
+export const deselectAllOjects = slice.actions.deselectAllOjects;
 
 export function initializeScene(canvas) {
   return (dispatch, getState, { scene }) => {
@@ -70,10 +74,12 @@ export function initializeScene(canvas) {
 
 export function addObjectToScene(name) {
   return (dispatch, getState, { scene, components }) => {
-    scene.add(components[name], {
+    const newObject = scene.add(components[name], {
       x: Math.random() * 500,
       y: Math.random() * 500
     });
+
+    dispatch(singleSelectObject(newObject.id));
   };
 }
 
@@ -83,6 +89,8 @@ export function selectObjectAtPoint(x, y) {
 
     if (object) {
       dispatch(singleSelectObject(object.id));
+    } else {
+      dispatch(deselectAllOjects());
     }
   };
 }

@@ -62,15 +62,17 @@ export default class Scene extends Events {
       ...newProps
     };
 
-    this.displayList.push({
+    const newObject = {
       id: this.generateId(Date.now()),
       label: displayObject.name,
       component: displayObject,
       visible: true,
       props
-    });
+    };
 
+    this.displayList.push(newObject);
     this.emit('display-list-update');
+    return newObject;
   }
 
   remove(id) {

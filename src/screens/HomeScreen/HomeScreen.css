@@ -23,6 +23,7 @@
 .selection {
   position: absolute;
   box-shadow: 0 0 0 1px #6B6F73;
+  user-select: none;
 }
 
 .selection__handle {
