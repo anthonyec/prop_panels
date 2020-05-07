@@ -36,10 +36,12 @@ export default function PropsPanel() {
     const props = object.component.props;
 
     const propComponents = props.map((prop) => {
+      const type = prop.type === 'number' ? 'number' : 'text';
+
       return (
         <div key={prop.id}>
           <label>{prop.id}</label>
-          <input type="text" defaultValue={object.props[prop.id]} onChange={handlePropValueUpdate.bind(null, prop, object)} />
+          <input type={type} defaultValue={object.props[prop.id]} onChange={handlePropValueUpdate.bind(null, prop, object)} />
         </div>
       );
     });
