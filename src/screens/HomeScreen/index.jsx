@@ -13,14 +13,36 @@ import {
 
 import './HomeScreen.css';
 
+function selectSelectedObjects(state) {
+  return state.scene.selected.map((id) => {
+    return state.scene.objects.find((object) => object.id === id);
+  });
+}
+
 export default function HomeScreen() {
   const dispatch = useDispatch();
   const objectList = useSelector((state) => state.scene.objects);
   const selectedObjectIds = useSelector((state) => state.scene.selected);
-  const selectedObjects = useSelector((state) => {
-    return state.scene.selected.map((id) => {
-      return state.scene.objects.find((object) => object.id === id);
-    });
+  const selectedObjects = useSelector(selectSelectedObjects);
+
+  const selectedBounds = useSelector((state) => {
+    const selectedObjectsInState = selectSelectedObjects(state);
+
+    if (!selectedObjectsInState.length) {
+      return;
+    }
+
+    const allMinX = selectedObjectsInState.map((object) => object.props.x);
+    const allMinY = selectedObjectsInState.map((object) => object.props.y);
+    const allMaxX = selectedObjectsInState.map((object) => object.props.x + object.props.width);
+    const allMaxY = selectedObjectsInState.map((object) => object.props.y + object.props.height);
+
+    const minX = Math.min(...allMinX);
+    const minY = Math.min(...allMinY);
+    const maxX = Math.max(...allMaxX);
+    const maxY = Math.max(...allMaxY);
+
+    return { x: minX, y: minY, width: maxX - minX, height: maxY - minY };
   });
 
   const canvasRef = useRef(null);
@@ -77,8 +99,6 @@ export default function HomeScreen() {
     );
   });
 
-  console.log('selectedObjects', selectedObjects);
-
   const selections = selectedObjects.map((selectedObject, index) => {
     const style = {
       left: selectedObject.props.x,
@@ -88,9 +108,18 @@ export default function HomeScreen() {
     };
 
     return (
-      <div className="selection" style={style} key={selectedObject.id}>{selectedObject.id}</div>
+      <div className="selection" style={style} key={selectedObject.id} />
     )
   });
+
+  const selection = selectedBounds ? (
+    <div className="selection" style={{ left: selectedBounds.x, top: selectedBounds.y, width: selectedBounds.width, height: selectedBounds.height }}>
+      <div className="selection__handle selection__handle--nw"></div>
+      <div className="selection__handle selection__handle--ne"></div>
+      <div className="selection__handle selection__handle--se"></div>
+      <div className="selection__handle selection__handle--sw"></div>
+    </div>
+  ) : null;
 
   return (
     <main className="HomeScreen">
@@ -106,6 +135,7 @@ export default function HomeScreen() {
       <div className="canvas">
         <canvas onClick={handleCanvasClick} ref={canvasRef} width={500} height={500} />
         {selections}
+        {selection}
       </div>
     </main>
   );

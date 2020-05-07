@@ -22,5 +22,41 @@
 
 .selection {
   position: absolute;
-  box-shadow: 0 0 0 3px #F6B528;
+  box-shadow: 0 0 0 1px #6B6F73;
+}
+
+.selection__handle {
+  background: white;
+  position: absolute;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.4), 0 1px 3px rgba(0, 0, 0, 0.2);
+  width: 6px;
+  height: 6px;
+}
+
+.selection__handle--nw {
+  top: 0;
+  left: 0;
+  margin-top: -3px;
+  margin-left: -3px;
+}
+
+.selection__handle--ne {
+  top: 0;
+  right: 0;
+  margin-top: -3px;
+  margin-right: -3px;
+}
+
+.selection__handle--se {
+  bottom: 0;
+  right: 0;
+  margin-bottom: -3px;
+  margin-right: -3px;
+}
+
+.selection__handle--sw {
+  bottom: 0;
+  left: 0;
+  margin-bottom: -3px;
+  margin-left: -3px;
 }
