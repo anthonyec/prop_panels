@@ -1,6 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
+import PropsPanel from '../../containers/PropsPanel';
+
 import {
   singleSelectObject,
   selectObject,
@@ -157,12 +159,16 @@ export default function HomeScreen() {
             className="workspace__canvas"
             onClick={handleCanvasClick}
             ref={canvasRef}
-            width={1024}
-            height={768}
+            width={800}
+            height={600}
           />
           {selections}
           {selection}
         </div>
+      </div>
+
+      <div className="propertyPanel">
+        <PropsPanel />
       </div>
     </main>
   );

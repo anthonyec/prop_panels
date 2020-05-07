@@ -33,6 +33,11 @@
   margin: 0;
 }
 
+.propertyPanel {
+  width: 300px;
+  flex-shrink: 0;
+}
+
 .listItem {
   padding: 8px;
   user-select: none;
