@@ -11,6 +11,8 @@ import {
   selectObjectAtPoint
 } from '../../store/scene';
 
+import './PropsPanel.css';
+
 // TODO: Remove duplication
 function selectSelectedObjects(state) {
   return state.scene.selected.map((id) => {
@@ -33,16 +35,16 @@ export default function PropsPanel() {
     const props = object.component.props;
 
     return props.map((prop) => {
-      return (
+      const propComponent = (
         <div key={prop.id}>
           <label>{prop.id}</label>
           <input type="text" defaultValue={prop.default} onChange={handlePropValueUpdate.bind(null, prop, object)} />
         </div>
       );
+
+      return <div className="props">{propComponent}</div>;
     });
   });
-
-  console.log(items);
 
   return (
     <div>
