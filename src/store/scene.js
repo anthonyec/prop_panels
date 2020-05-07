@@ -8,6 +8,7 @@ const slice = createSlice({
   },
   reducers: {
     singleSelectObject(state, { payload: id }) {
+      state.selected = [];
       state.selected = [id];
     },
     selectObject(state, { payload: id }) {
@@ -30,7 +31,13 @@ const slice = createSlice({
           : state.objects.slice(firstIndex, secondIndex + 1);
         const ids = objectsBetween.map((objectBetween) => objectBetween.id);
 
-        state.selected = [...state.selected, ...ids];
+
+        // TODO: Fix leak where empty IDs are left around.
+        const selectedIds = ids.filter((id) => {
+          return !state.selected.includes(id);
+        });
+
+        state.selected = [...state.selected, ...selectedIds];
       }
     },
     deselectObject(state, action) {

@@ -23,8 +23,6 @@ export default function HomeScreen() {
     });
   });
 
-  console.log(selectedObjects);
-
   const canvasRef = useRef(null);
 
   useEffect(() => {
@@ -79,8 +77,9 @@ export default function HomeScreen() {
     );
   });
 
+  console.log('selectedObjects', selectedObjects);
+
   const selections = selectedObjects.map((selectedObject, index) => {
-    console.log(selectedObject)
     const style = {
       left: selectedObject.props.x,
       top: selectedObject.props.y,
@@ -89,7 +88,7 @@ export default function HomeScreen() {
     };
 
     return (
-      <div className="selection" style={style} key={selectedObject.id} />
+      <div className="selection" style={style} key={selectedObject.id}>{selectedObject.id}</div>
     )
   });
 

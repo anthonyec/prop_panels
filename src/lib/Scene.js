@@ -1,5 +1,15 @@
 import Events from './Events';
 
+function uidGenerator() {
+  let uid = 0;
+
+  return (name = '') => {
+    uid += 1;
+
+    return uid;
+  }
+}
+
 function getPropsAsArguments(props) {
   let args = {};
 
@@ -13,6 +23,8 @@ function getPropsAsArguments(props) {
 export default class Scene extends Events {
   constructor(props = { canvas: null }) {
     super();
+
+    this.generateId = uidGenerator();
 
     if (!props.canvas) {
       console.warn(
@@ -51,7 +63,7 @@ export default class Scene extends Events {
     };
 
     this.displayList.push({
-      id: Date.now() + '' + Math.floor(Math.random() * 99),
+      id: this.generateId(Date.now()),
       label: displayObject.name,
       component: displayObject,
       visible: true,
@@ -71,8 +83,6 @@ export default class Scene extends Events {
     this.displayList.forEach((displayObject) => {
       const props = displayObject.props;
 
-      this.context.strokeRect(props.x, props.y, props.width, props.height);
-      // this.context.strokeRect();
       displayObject.component.draw({ context: this.context, ...props });
     });
 
@@ -94,8 +104,6 @@ export default class Scene extends Events {
   hit(hitX, hitY) {
     const hitItems = this.displayList.filter((displayItem) => {
       const { x, y, width, height } = displayItem.props;
-
-      console.log(displayItem.props);
 
       return hitX >= x && hitY >= y && hitX <= x + width && hitY <= y + height;
     });
