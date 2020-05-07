@@ -50,22 +50,22 @@ export default class Scene extends Events {
     this.update();
   }
 
-  add(displayObject, newProps = {}) {
-    const displayObjectProps = getPropsAsArguments(displayObject.props);
+  add(component, newProps = {}) {
+    const componentProps = getPropsAsArguments(component.props);
     const props = {
       x: 0,
       y: 0,
       width: 300,
       height: 200,
       rotation: 0,
-      ...displayObjectProps,
+      ...componentProps,
       ...newProps
     };
 
     const newObject = {
       id: this.generateId(Date.now()),
-      label: displayObject.name,
-      component: displayObject,
+      label: component.name,
+      component: component,
       visible: true,
       props
     };
@@ -79,12 +79,40 @@ export default class Scene extends Events {
     this.emit('display-list-update');
   }
 
+  updateObject(id, prop) {
+    const index = this.getObjectIndex(id);
+    const object = this.displayList[index];
+
+    const propDefinition = this.getPropDefinition(id, prop.id);
+
+    let value = prop.value;
+
+    if (propDefinition.type === 'number') {
+      value = parseFloat(value);
+    }
+
+    console.log('updateObject', prop.id, value);
+
+    const newObject = {
+      ...object,
+      props: {
+        ...object.props,
+        [prop.id]: value
+      }
+    };
+
+    this.displayList[index] = newObject;
+    this.emit('display-list-update');
+  }
+
   draw() {
     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
     this.displayList.forEach((displayObject) => {
       const props = displayObject.props;
+      const skipDrawingToMainCanvas = props.width !== 0 && props.height !== 0;
 
+      // Draw onto a "buffer" instead of the main canvas.
       const bufferCanvas = document.createElement('canvas');
       const bufferContext = bufferCanvas.getContext('2d');
 
@@ -94,14 +122,32 @@ export default class Scene extends Events {
       displayObject.component.draw({
         context: bufferContext,
         ...props,
+
+        // Position will be managed by Scene when drawing to buffer.
         x: 0,
         y: 0
       });
 
-      this.context.drawImage(bufferCanvas, props.x, props.y);
+      if (skipDrawingToMainCanvas) {
+        this.context.drawImage(bufferCanvas, props.x, props.y);
+      }
     });
 
     this.emit('draw');
+  }
+
+  getPropDefinition(objectId, propId) {
+    const object = this.getObject(objectId);
+
+    return object.component.props.find((prop) => prop.id === propId);
+  }
+
+  getObject(objectId) {
+    return this.displayList.find((object) => object.id === objectId);
+  }
+
+  getObjectIndex(objectId) {
+    return this.displayList.findIndex((object) => object.id === objectId);
   }
 
   resizeCanvas() {

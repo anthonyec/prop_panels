@@ -8,8 +8,11 @@ const getPos = (angle, rad, cx = 0, cy = 0) => {
 export default {
   name: 'Spiral',
   props: [
+    { id: 'x', type: 'number' },
+    { id: 'y', type: 'number' },
     { id: 'width', type: 'number', default: 500 },
     { id: 'height', type: 'number', default: 500 },
+    { id: 't', type: 'number', default: 0.5 },
     { id: 'color', type: 'color', default: 'rgba(0, 0, 0, 1)' }
   ],
   draw: ({ context, x, y, width, height, rings = 1, color, t = 0.5}) => {

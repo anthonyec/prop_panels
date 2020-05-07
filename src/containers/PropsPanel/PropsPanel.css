@@ -1,3 +1,9 @@
+.PropsPanel {
+  border-left: 1px solid silver;
+  height: 100%;
+  overflow: scroll;
+}
+
 .props {
   margin-bottom: 20px;
 }

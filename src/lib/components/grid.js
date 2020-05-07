@@ -1,6 +1,8 @@
 export default {
   name: 'Grid',
   props: [
+    { id: 'x', type: 'number', default: 0 },
+    { id: 'y', type: 'number', default: 0 },
     { id: 'width', type: 'number', default: 100 },
     { id: 'height', type: 'number', default: 100 },
     { id: 'columns', type: 'number', default: 10 },

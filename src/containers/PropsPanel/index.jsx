@@ -8,7 +8,8 @@ import {
   selectObjectsBetween,
   initializeScene,
   addObjectToScene,
-  selectObjectAtPoint
+  selectObjectAtPoint,
+  updateObjectProps
 } from '../../store/scene';
 
 import './PropsPanel.css';
@@ -27,27 +28,27 @@ export default function PropsPanel() {
   const objects = useSelector(selectSelectedObjects);
 
   const handlePropValueUpdate = function(prop, object, evt) {
-    console.log(prop, object, evt.target.value);
-    // dispatch(updateObjectProps())
+    const value = evt.target.value;
+    dispatch(updateObjectProps(object.id, { id: prop.id, value: value }));
   };
 
   const items = objects.map((object) => {
     const props = object.component.props;
 
-    return props.map((prop) => {
-      const propComponent = (
+    const propComponents = props.map((prop) => {
+      return (
         <div key={prop.id}>
           <label>{prop.id}</label>
-          <input type="text" defaultValue={prop.default} onChange={handlePropValueUpdate.bind(null, prop, object)} />
+          <input type="text" defaultValue={object.props[prop.id]} onChange={handlePropValueUpdate.bind(null, prop, object)} />
         </div>
       );
-
-      return <div className="props">{propComponent}</div>;
     });
+
+    return <div className="props" key={object.id}>{propComponents}</div>
   });
 
   return (
-    <div>
+    <div className="PropsPanel">
       Properties:
       {items}
     </div>

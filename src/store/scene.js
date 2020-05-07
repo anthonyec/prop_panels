@@ -95,4 +95,11 @@ export function selectObjectAtPoint(x, y) {
   };
 }
 
+
+export function updateObjectProps(id, prop) {
+  return (dispatch, getState, { scene, components }) => {
+    scene.updateObject(id, prop);
+  };
+}
+
 export default slice;
