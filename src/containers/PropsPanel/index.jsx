@@ -41,7 +41,7 @@ export default function PropsPanel() {
         <div key={prop.id}>
           <label>{prop.id}</label>
           <input
-            type={type}
+            type={prop.type}
             defaultValue={object.props[prop.id]}
             onChange={handlePropValueUpdate.bind(null, prop, object)}
           />
@@ -51,15 +51,11 @@ export default function PropsPanel() {
 
     return (
       <div className="props" key={object.id}>
+        <h3 className="props__title">{object.component.name}</h3>
         {propComponents}
       </div>
     );
   });
 
-  return (
-    <div className="PropsPanel">
-      Properties:
-      {items}
-    </div>
-  );
+  return <div className="PropsPanel">{items}</div>;
 }

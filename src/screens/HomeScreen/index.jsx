@@ -173,3 +173,6 @@ export default function HomeScreen() {
     </main>
   );
 }
+
+// width={500}
+// height={400}

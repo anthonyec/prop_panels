@@ -87,11 +87,10 @@ export default class Scene extends Events {
 
     let value = prop.value;
 
+    // TODO: Improve value type casting.
     if (propDefinition.type === 'number') {
       value = parseFloat(value);
     }
-
-    console.log('updateObject', prop.id, value);
 
     const newObject = {
       ...object,
@@ -119,14 +118,24 @@ export default class Scene extends Events {
       bufferContext.canvas.width = props.width;
       bufferContext.canvas.height = props.height;
 
-      displayObject.component.draw({
-        context: bufferContext,
-        ...props,
+      try {
+        displayObject.component.draw({
+          context: bufferContext,
+          ...props,
 
-        // Position will be managed by Scene when drawing to buffer.
-        x: 0,
-        y: 0
-      });
+          // Position will be managed by Scene when drawing to buffer.
+          x: 0,
+          y: 0
+        });
+      } catch (err) {
+        this.context.font = '16px Arial';
+        this.context.fillText(
+          'Component error! See console.',
+          props.x + 50,
+          props.y + 50
+        );
+        console.error(err);
+      }
 
       if (skipDrawingToMainCanvas) {
         this.context.drawImage(bufferCanvas, props.x, props.y);

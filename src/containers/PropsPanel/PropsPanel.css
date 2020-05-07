@@ -7,3 +7,8 @@
 .props {
   margin-bottom: 20px;
 }
+
+.props__title {
+  background: #eee;
+  padding: 15px;
+}
