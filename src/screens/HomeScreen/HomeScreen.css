@@ -1,14 +1,36 @@
 .HomeScreen {
-}
-
-.canvas {
-  position: relative;
-  border: 1px solid red;
-}
-
-.canvas canvas {
+  position: absolute;
+  display: flex;
   width: 100%;
   height: 100%;
+}
+
+.layers {
+  border-right: 1px solid silver;
+  flex-shrink: 0;
+  overflow: scroll;
+}
+
+.workspace {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  overflow: scroll;
+}
+
+.workspace__canvas-container {
+  border: 1px solid silver;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.workspace__canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  margin: 0;
 }
 
 .listItem {

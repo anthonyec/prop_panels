@@ -133,24 +133,36 @@ export default function HomeScreen() {
 
   return (
     <main className="HomeScreen">
-      <button onClick={handleAddOnClick.bind(null, 'rectangle')}>
-        Add Rectangle
-      </button>
-      <button onClick={handleAddOnClick.bind(null, 'circle')}>
-        Add Circle
-      </button>
+      <div className="layers">
+        <div>
+          <button onClick={handleAddOnClick.bind(null, 'rectangle')}>
+            Add Rectangle
+          </button>
+          <button onClick={handleAddOnClick.bind(null, 'circle')}>
+            Add Circle
+          </button>
+          <button onClick={handleAddOnClick.bind(null, 'spiral')}>
+            Add Spiral
+          </button>
+          <button onClick={handleAddOnClick.bind(null, 'grid')}>
+            Add Grid
+          </button>
+        </div>
+        <ol className="layers__list">{list}</ol>
+      </div>
 
-      <ol>{list}</ol>
-
-      <div className="canvas">
-        <canvas
-          onClick={handleCanvasClick}
-          ref={canvasRef}
-          width={500}
-          height={500}
-        />
-        {selections}
-        {selection}
+      <div className="workspace">
+        <div className="workspace__canvas-container">
+          <canvas
+            className="workspace__canvas"
+            onClick={handleCanvasClick}
+            ref={canvasRef}
+            width={1024}
+            height={768}
+          />
+          {selections}
+          {selection}
+        </div>
       </div>
     </main>
   );
