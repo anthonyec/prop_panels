@@ -34,8 +34,12 @@ export default function HomeScreen() {
 
     const allMinX = selectedObjectsInState.map((object) => object.props.x);
     const allMinY = selectedObjectsInState.map((object) => object.props.y);
-    const allMaxX = selectedObjectsInState.map((object) => object.props.x + object.props.width);
-    const allMaxY = selectedObjectsInState.map((object) => object.props.y + object.props.height);
+    const allMaxX = selectedObjectsInState.map(
+      (object) => object.props.x + object.props.width
+    );
+    const allMaxY = selectedObjectsInState.map(
+      (object) => object.props.y + object.props.height
+    );
 
     const minX = Math.min(...allMinX);
     const minY = Math.min(...allMinY);
@@ -107,13 +111,19 @@ export default function HomeScreen() {
       height: selectedObject.props.height
     };
 
-    return (
-      <div className="selection" style={style} key={selectedObject.id} />
-    )
+    return <div className="selection" style={style} key={selectedObject.id} />;
   });
 
   const selection = selectedBounds ? (
-    <div className="selection" style={{ left: selectedBounds.x, top: selectedBounds.y, width: selectedBounds.width, height: selectedBounds.height }}>
+    <div
+      className="selection"
+      style={{
+        left: selectedBounds.x,
+        top: selectedBounds.y,
+        width: selectedBounds.width,
+        height: selectedBounds.height
+      }}
+    >
       <div className="selection__handle selection__handle--nw"></div>
       <div className="selection__handle selection__handle--ne"></div>
       <div className="selection__handle selection__handle--se"></div>
@@ -133,7 +143,12 @@ export default function HomeScreen() {
       <ol>{list}</ol>
 
       <div className="canvas">
-        <canvas onClick={handleCanvasClick} ref={canvasRef} width={500} height={500} />
+        <canvas
+          onClick={handleCanvasClick}
+          ref={canvasRef}
+          width={500}
+          height={500}
+        />
         {selections}
         {selection}
       </div>

@@ -31,7 +31,6 @@ const slice = createSlice({
           : state.objects.slice(firstIndex, secondIndex + 1);
         const ids = objectsBetween.map((objectBetween) => objectBetween.id);
 
-
         // TODO: Fix leak where empty IDs are left around.
         const selectedIds = ids.filter((id) => {
           return !state.selected.includes(id);

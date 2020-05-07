@@ -7,7 +7,7 @@ function uidGenerator() {
     uid += 1;
 
     return uid;
-  }
+  };
 }
 
 function getPropsAsArguments(props) {
