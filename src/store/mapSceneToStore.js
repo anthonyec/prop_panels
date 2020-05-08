@@ -6,7 +6,6 @@ export default function mapSceneToStore(scene, store) {
   });
 
   scene.on('display-list-update', () => {
-    console.log('mapSceneToStore->display-list-update', scene.displayList);
     store.dispatch(setObjects(scene.displayList));
   });
 }

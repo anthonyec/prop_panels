@@ -50,7 +50,7 @@ export default class Scene extends Events {
     this.update();
   }
 
-  add(component, newProps = {}) {
+  async add(component, newProps = {}) {
     const componentProps = getPropsAsArguments(component.props);
     const props = {
       x: 0,
@@ -62,12 +62,24 @@ export default class Scene extends Events {
       ...newProps
     };
 
+    // TODO: Is this a good way to do it?? I don't think add should be async
+    // as it holds up everything. Find a way to setup up components on first
+    // maybe.
+    let propsFromSetup = {};
+
+    if (component.setup) {
+      propsFromSetup = await component.setup(props);
+    }
+
     const newObject = {
       id: this.generateId(Date.now()),
       label: component.name,
       component: component,
       visible: true,
-      props
+      props: {
+        ...props,
+        ...propsFromSetup
+      }
     };
 
     this.displayList.push(newObject);

@@ -8,6 +8,7 @@
 .layers {
   border-right: 1px solid silver;
   flex-shrink: 0;
+  width: 300px;
   overflow: scroll;
 }
 
@@ -51,6 +52,7 @@
   position: absolute;
   box-shadow: 0 0 0 1px #6B6F73;
   user-select: none;
+  /* transition: all 200ms ease-in-out; */
 }
 
 .selection__handle {

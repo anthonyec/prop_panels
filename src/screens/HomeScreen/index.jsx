@@ -149,6 +149,9 @@ export default function HomeScreen() {
           <button onClick={handleAddOnClick.bind(null, 'grid')}>
             Add Grid
           </button>
+          <button onClick={handleAddOnClick.bind(null, 'image')}>
+            Add Image
+          </button>
         </div>
         <ol className="layers__list">{list}</ol>
       </div>
