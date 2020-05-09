@@ -8,6 +8,13 @@ const slice = createSlice({
   },
   reducers: {
     singleSelectObject(state, { payload: id }) {
+      const objectExists = state.objects.find((displayObjectId) => displayObjectId.id === id);
+
+      if (!objectExists) {
+        state.selected = [];
+        return;
+      }
+
       state.selected = [];
       state.selected = [id];
     },
@@ -49,10 +56,9 @@ const slice = createSlice({
     deselectAllOjects(state) {
       state.selected = [];
     },
-    addObject(state, action) {},
-    removeObject(state, action) {},
     setObjects(state, action) {
-      state.objects = [...action.payload];
+      const newObjects = [...action.payload];
+      state.objects = newObjects;
     }
   }
 });
@@ -102,6 +108,12 @@ export function updateObjectProps(id, prop) {
     }
 
     scene.updateObject(id, prop);
+  };
+}
+
+export function removeObject(id) {
+  return (dispatch, getState, { scene }) => {
+    scene.remove(id);
   };
 }
 

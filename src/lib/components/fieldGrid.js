@@ -1,6 +1,6 @@
 const { lerp } = require('canvas-sketch-util/math');
 
-function draw (context, x, y, length, thickness, rotation, color) {
+function draw(context, x, y, length, thickness, rotation, color) {
   context.save();
   context.fillStyle = color;
 
@@ -27,7 +27,18 @@ export default {
     { id: 'playhead', type: 'number', default: 0.2 },
     { id: 'color', type: 'color', default: 'gray' }
   ],
-  draw: ({ context, x, y, width, height, color, rows, columns, playhead, padding }) => {
+  draw: ({
+    context,
+    x,
+    y,
+    width,
+    height,
+    color,
+    rows,
+    columns,
+    playhead,
+    padding
+  }) => {
     const gridSize = rows;
     const tileSize = (width - padding * 2) / gridSize;
 

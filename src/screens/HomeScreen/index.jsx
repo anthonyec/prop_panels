@@ -12,6 +12,7 @@ import {
   addObjectToScene,
   selectObjectAtPoint,
   reorderObject,
+  removeObject
 } from '../../store/scene';
 
 import './HomeScreen.css';
@@ -24,6 +25,7 @@ function selectSelectedObjects(state) {
 
 export default function HomeScreen() {
   const dispatch = useDispatch();
+
   const objectList = useSelector((state) => state.scene.objects);
   const selectedObjectIds = useSelector((state) => state.scene.selected);
   const selectedObjects = useSelector(selectSelectedObjects);
@@ -91,7 +93,13 @@ export default function HomeScreen() {
 
   const handleLayerMoveClick = (id, direction) => {
     dispatch(reorderObject(id, direction));
-  }
+  };
+
+  const handleLayerVisibleClick = (id) => {};
+
+  const handleLayerDeleteClick = (id) => {
+    dispatch(removeObject(id));
+  };
 
   const list = objectList.map((object) => {
     const selected = selectedObjectIds.includes(object.id);
@@ -107,8 +115,18 @@ export default function HomeScreen() {
       >
         {object.label}
 
-        <button onClick={handleLayerMoveClick.bind(null, object.id, 1)}>↓</button>
-        <button onClick={handleLayerMoveClick.bind(null, object.id, -1)}>↑</button>
+        <button onClick={handleLayerMoveClick.bind(null, object.id, 1)}>
+          ↓
+        </button>
+        <button onClick={handleLayerMoveClick.bind(null, object.id, -1)}>
+          ↑
+        </button>
+        <button onClick={handleLayerVisibleClick.bind(null, object.id)}>
+          👁
+        </button>
+        <button onClick={handleLayerDeleteClick.bind(null, object.id)}>
+          X
+        </button>
       </li>
     );
   });
@@ -154,12 +172,8 @@ export default function HomeScreen() {
           <button onClick={handleAddOnClick.bind(null, 'spiral')}>
             Spiral
           </button>
-          <button onClick={handleAddOnClick.bind(null, 'grid')}>
-            Grid
-          </button>
-          <button onClick={handleAddOnClick.bind(null, 'image')}>
-            Image
-          </button>
+          <button onClick={handleAddOnClick.bind(null, 'grid')}>Grid</button>
+          <button onClick={handleAddOnClick.bind(null, 'image')}>Image</button>
           <button onClick={handleAddOnClick.bind(null, 'fieldGrid')}>
             Field Grid
           </button>

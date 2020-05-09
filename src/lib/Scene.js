@@ -22,20 +22,20 @@ function getPropsAsArguments(props) {
 
 function arrayMove(arr, old_index, new_index) {
   while (old_index < 0) {
-      old_index += arr.length;
+    old_index += arr.length;
   }
   while (new_index < 0) {
-      new_index += arr.length;
+    new_index += arr.length;
   }
   if (new_index >= arr.length) {
-      var k = new_index - arr.length + 1;
-      while (k--) {
-          arr.push(undefined);
-      }
+    var k = new_index - arr.length + 1;
+    while (k--) {
+      arr.push(undefined);
+    }
   }
   arr.splice(new_index, 0, arr.splice(old_index, 1)[0]);
   return arr; // for testing purposes
-};
+}
 
 export default class Scene extends Events {
   constructor(props = { canvas: null }) {
@@ -104,7 +104,14 @@ export default class Scene extends Events {
     return newObject;
   }
 
-  remove(id) {
+  remove(objectId) {
+    const index = this.getObjectIndex(objectId);
+
+    this.displayList = [
+      ...this.displayList.slice(0, index),
+      ...this.displayList.slice(index + 1)
+    ];
+
     this.emit('display-list-update');
   }
 

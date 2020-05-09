@@ -17,12 +17,7 @@ export default {
 
     for (let col = 0; col < columns + 1; col++) {
       for (let row = 0; row < rows; row++) {
-        context.fillRect(
-          (width / columns) * col,
-          (height / rows) * row,
-          2,
-          2
-        );
+        context.fillRect((width / columns) * col, (height / rows) * row, 2, 2);
       }
     }
   }

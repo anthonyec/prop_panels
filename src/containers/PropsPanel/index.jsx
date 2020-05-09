@@ -2,13 +2,6 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import {
-  singleSelectObject,
-  selectObject,
-  deselectObject,
-  selectObjectsBetween,
-  initializeScene,
-  addObjectToScene,
-  selectObjectAtPoint,
   updateObjectProps
 } from '../../store/scene';
 
@@ -22,8 +15,7 @@ function selectSelectedObjects(state) {
 }
 
 export default function PropsPanel() {
-  const dispatch = useDispatch();
-
+  const dispatch = useDispatch()
   const objects = useSelector(selectSelectedObjects);
 
   const handlePropValueUpdate = function (prop, object, evt) {
@@ -53,9 +45,7 @@ export default function PropsPanel() {
     return (
       <div className="props" key={object.id}>
         <h3 className="props__title">{object.component.name}</h3>
-        <div className="props__group">
-          {propComponents}
-        </div>
+        <div className="props__group">{propComponents}</div>
       </div>
     );
   });
