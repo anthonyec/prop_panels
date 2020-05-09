@@ -10,7 +10,8 @@ import {
   selectObjectsBetween,
   initializeScene,
   addObjectToScene,
-  selectObjectAtPoint
+  selectObjectAtPoint,
+  reorderObject,
 } from '../../store/scene';
 
 import './HomeScreen.css';
@@ -88,6 +89,10 @@ export default function HomeScreen() {
     }
   };
 
+  const handleLayerMoveClick = (id, direction) => {
+    dispatch(reorderObject(id, direction));
+  }
+
   const list = objectList.map((object) => {
     const selected = selectedObjectIds.includes(object.id);
     const selectedClass = selected ? 'listItem--selected' : '';
@@ -101,6 +106,9 @@ export default function HomeScreen() {
         draggable
       >
         {object.label}
+
+        <button onClick={handleLayerMoveClick.bind(null, object.id, 1)}>↓</button>
+        <button onClick={handleLayerMoveClick.bind(null, object.id, -1)}>↑</button>
       </li>
     );
   });

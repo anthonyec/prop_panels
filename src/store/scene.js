@@ -84,7 +84,7 @@ export function addObjectToScene(name) {
 }
 
 export function selectObjectAtPoint(x, y) {
-  return (dispatch, getState, { scene, components }) => {
+  return (dispatch, getState, { scene }) => {
     const object = scene.hit(x, y);
 
     if (object) {
@@ -96,12 +96,18 @@ export function selectObjectAtPoint(x, y) {
 }
 
 export function updateObjectProps(id, prop) {
-  return (dispatch, getState, { scene, components }) => {
+  return (dispatch, getState, { scene }) => {
     if (!prop.value) {
       return;
     }
 
     scene.updateObject(id, prop);
+  };
+}
+
+export function reorderObject(id, direction = 0) {
+  return (dispatch, getState, { scene }) => {
+    scene.reorder(id, direction);
   };
 }
 

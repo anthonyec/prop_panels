@@ -3,7 +3,7 @@ import Events from './Events';
 function uidGenerator() {
   let uid = 0;
 
-  return (name = '') => {
+  return () => {
     uid += 1;
 
     return uid;
@@ -19,6 +19,23 @@ function getPropsAsArguments(props) {
 
   return args;
 }
+
+function arrayMove(arr, old_index, new_index) {
+  while (old_index < 0) {
+      old_index += arr.length;
+  }
+  while (new_index < 0) {
+      new_index += arr.length;
+  }
+  if (new_index >= arr.length) {
+      var k = new_index - arr.length + 1;
+      while (k--) {
+          arr.push(undefined);
+      }
+  }
+  arr.splice(new_index, 0, arr.splice(old_index, 1)[0]);
+  return arr; // for testing purposes
+};
 
 export default class Scene extends Events {
   constructor(props = { canvas: null }) {
@@ -88,6 +105,22 @@ export default class Scene extends Events {
   }
 
   remove(id) {
+    this.emit('display-list-update');
+  }
+
+  reorder(objectId, direction = 0) {
+    const index = this.getObjectIndex(objectId);
+    const newIndex = index + direction;
+
+    if (newIndex < 0) {
+      return 0;
+    }
+
+    if (newIndex > this.displayList.length - 1) {
+      return this.displayList.length - 1;
+    }
+
+    this.displayList = arrayMove(this.displayList, index, newIndex);
     this.emit('display-list-update');
   }
 
