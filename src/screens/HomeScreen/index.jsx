@@ -100,17 +100,21 @@ export default function HomeScreen() {
   const handleLayerShowClick = (id, evt) => {
     evt.stopPropagation();
 
-    dispatch(updateObjectMetadata(id, {
-      visible: true
-    }));
+    dispatch(
+      updateObjectMetadata(id, {
+        visible: true
+      })
+    );
   };
 
   const handleLayerHideClick = (id, evt) => {
     evt.stopPropagation();
 
-    dispatch(updateObjectMetadata(id, {
-      visible: false
-    }));
+    dispatch(
+      updateObjectMetadata(id, {
+        visible: false
+      })
+    );
   };
 
   const handleLayerDeleteClick = (id, evt) => {
@@ -148,7 +152,7 @@ export default function HomeScreen() {
           <button onClick={handleLayerDeleteClick.bind(null, object.id)}>
             X
           </button>
-          </div>
+        </div>
       </li>
     );
   });

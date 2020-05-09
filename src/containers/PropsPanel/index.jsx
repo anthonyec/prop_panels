@@ -1,9 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import {
-  updateObjectProp
-} from '../../store/scene';
+import { updateObjectProp } from '../../store/scene';
 
 import './PropsPanel.css';
 
@@ -15,7 +13,7 @@ function selectSelectedObjects(state) {
 }
 
 export default function PropsPanel() {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const objects = useSelector(selectSelectedObjects);
 
   const handlePropValueUpdate = function (prop, object, evt) {

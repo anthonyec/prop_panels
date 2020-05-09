@@ -165,7 +165,7 @@ export default class Scene extends Events {
       ...metadata,
       id: object.id,
       component: object.component,
-      props: object.props,
+      props: object.props
     };
 
     this.displayList[index] = newObject;
@@ -179,7 +179,8 @@ export default class Scene extends Events {
       const props = displayObject.props;
       const widthOrHeightIsZero = props.width === 0 || props.height === 0;
 
-      const shouldDrawToMainCanvas = displayObject.visible && !widthOrHeightIsZero;
+      const shouldDrawToMainCanvas =
+        displayObject.visible && !widthOrHeightIsZero;
 
       // Draw onto a "buffer" instead of the main canvas.
       const bufferCanvas = document.createElement('canvas');

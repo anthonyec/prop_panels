@@ -8,7 +8,9 @@ const slice = createSlice({
   },
   reducers: {
     singleSelectObject(state, { payload: id }) {
-      const objectExists = state.objects.find((displayObjectId) => displayObjectId.id === id);
+      const objectExists = state.objects.find(
+        (displayObjectId) => displayObjectId.id === id
+      );
 
       if (!objectExists) {
         return;
