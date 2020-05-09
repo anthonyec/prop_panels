@@ -1,14 +1,37 @@
 .PropsPanel {
-  border-left: 1px solid silver;
   height: 100%;
   overflow: scroll;
 }
 
 .props {
-  margin-bottom: 20px;
+  background: white;
+  border-bottom: 1px solid #eee;
+  font-size: 14px;
+  overflow: hidden;
+  padding: 10px;
 }
 
 .props__title {
-  background: #eee;
-  padding: 15px;
+  /* background: #eee; */
+  padding: 14px 10px;
+  font-weight: 500;
+}
+
+.props__group {
+  padding: 5px 0;
+}
+
+.props__field {
+  color: gray;
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 10px;
+}
+
+.props__field input {
+  color: #424447;
+  border: 1px solid #C9CFD8;
+  border-radius: 4px;
+  font-size: 14px;
+  padding: 4px 5px;
 }

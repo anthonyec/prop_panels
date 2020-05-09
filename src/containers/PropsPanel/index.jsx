@@ -38,9 +38,10 @@ export default function PropsPanel() {
       const type = prop.type === 'number' ? 'number' : 'text';
 
       return (
-        <div key={prop.id}>
-          <label>{prop.id}</label>
+        <div className="props__field" key={prop.id}>
+          <label htmlFor={prop.id}>{prop.id}</label>
           <input
+            id={prop.id}
             type={prop.type}
             defaultValue={object.props[prop.id]}
             onChange={handlePropValueUpdate.bind(null, prop, object)}
@@ -52,7 +53,9 @@ export default function PropsPanel() {
     return (
       <div className="props" key={object.id}>
         <h3 className="props__title">{object.component.name}</h3>
-        {propComponents}
+        <div className="props__group">
+          {propComponents}
+        </div>
       </div>
     );
   });
