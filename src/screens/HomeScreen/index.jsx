@@ -91,13 +91,17 @@ export default function HomeScreen() {
     }
   };
 
-  const handleLayerMoveClick = (id, direction) => {
+  const handleLayerMoveClick = (id, direction, evt) => {
+    evt.stopPropagation();
     dispatch(reorderObject(id, direction));
   };
 
-  const handleLayerVisibleClick = (id) => {};
+  const handleLayerVisibleClick = (id, evt) => {
+    evt.stopPropagation();
+  };
 
-  const handleLayerDeleteClick = (id) => {
+  const handleLayerDeleteClick = (id, evt) => {
+    // evt.stopPropagation();
     dispatch(removeObject(id));
   };
 

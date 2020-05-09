@@ -11,7 +11,6 @@ const slice = createSlice({
       const objectExists = state.objects.find((displayObjectId) => displayObjectId.id === id);
 
       if (!objectExists) {
-        state.selected = [];
         return;
       }
 
@@ -113,6 +112,7 @@ export function updateObjectProps(id, prop) {
 
 export function removeObject(id) {
   return (dispatch, getState, { scene }) => {
+    dispatch(deselectAllOjects());
     scene.remove(id);
   };
 }
