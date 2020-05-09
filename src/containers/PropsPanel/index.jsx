@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import {
-  updateObjectProps
+  updateObjectProp
 } from '../../store/scene';
 
 import './PropsPanel.css';
@@ -20,15 +20,13 @@ export default function PropsPanel() {
 
   const handlePropValueUpdate = function (prop, object, evt) {
     const value = evt.target.value;
-    dispatch(updateObjectProps(object.id, { id: prop.id, value: value }));
+    dispatch(updateObjectProp(object.id, { id: prop.id, value: value }));
   };
 
   const items = objects.map((object) => {
     const props = object.component.props;
 
     const propComponents = props.map((prop) => {
-      const type = prop.type === 'number' ? 'number' : 'text';
-
       return (
         <div className="props__field" key={prop.id}>
           <label htmlFor={prop.id}>{prop.id}</label>

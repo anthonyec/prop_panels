@@ -92,7 +92,7 @@ export function selectObjectAtPoint(x, y) {
   return (dispatch, getState, { scene }) => {
     const object = scene.hit(x, y);
 
-    if (object) {
+    if (object && object.visible) {
       dispatch(singleSelectObject(object.id));
     } else {
       dispatch(deselectAllOjects());
@@ -100,13 +100,19 @@ export function selectObjectAtPoint(x, y) {
   };
 }
 
-export function updateObjectProps(id, prop) {
+export function updateObjectProp(id, prop) {
   return (dispatch, getState, { scene }) => {
     if (!prop.value) {
       return;
     }
 
-    scene.updateObject(id, prop);
+    scene.updateObjectProp(id, prop);
+  };
+}
+
+export function updateObjectMetadata(id, metadata = {}) {
+  return (dispatch, getState, { scene }) => {
+    scene.updateObjectMetadata(id, metadata);
   };
 }
 

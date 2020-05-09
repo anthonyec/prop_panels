@@ -12,7 +12,8 @@ import {
   addObjectToScene,
   selectObjectAtPoint,
   reorderObject,
-  removeObject
+  removeObject,
+  updateObjectMetadata
 } from '../../store/scene';
 
 import './HomeScreen.css';
@@ -96,12 +97,24 @@ export default function HomeScreen() {
     dispatch(reorderObject(id, direction));
   };
 
-  const handleLayerVisibleClick = (id, evt) => {
+  const handleLayerShowClick = (id, evt) => {
     evt.stopPropagation();
+
+    dispatch(updateObjectMetadata(id, {
+      visible: true
+    }));
+  };
+
+  const handleLayerHideClick = (id, evt) => {
+    evt.stopPropagation();
+
+    dispatch(updateObjectMetadata(id, {
+      visible: false
+    }));
   };
 
   const handleLayerDeleteClick = (id, evt) => {
-    // evt.stopPropagation();
+    evt.stopPropagation();
     dispatch(removeObject(id));
   };
 
@@ -119,18 +132,23 @@ export default function HomeScreen() {
       >
         {object.label}
 
-        <button onClick={handleLayerMoveClick.bind(null, object.id, 1)}>
-          ↓
-        </button>
-        <button onClick={handleLayerMoveClick.bind(null, object.id, -1)}>
-          ↑
-        </button>
-        <button onClick={handleLayerVisibleClick.bind(null, object.id)}>
-          👁
-        </button>
-        <button onClick={handleLayerDeleteClick.bind(null, object.id)}>
-          X
-        </button>
+        <div>
+          <button onClick={handleLayerMoveClick.bind(null, object.id, 1)}>
+            ↓
+          </button>
+          <button onClick={handleLayerMoveClick.bind(null, object.id, -1)}>
+            ↑
+          </button>
+          <button onClick={handleLayerShowClick.bind(null, object.id)}>
+            👁
+          </button>
+          <button onClick={handleLayerHideClick.bind(null, object.id)}>
+            X👁
+          </button>
+          <button onClick={handleLayerDeleteClick.bind(null, object.id)}>
+            X
+          </button>
+          </div>
       </li>
     );
   });

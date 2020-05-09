@@ -131,7 +131,7 @@ export default class Scene extends Events {
     this.emit('display-list-update');
   }
 
-  updateObject(id, prop) {
+  updateObjectProp(id, prop) {
     const index = this.getObjectIndex(id);
     const object = this.displayList[index];
 
@@ -156,12 +156,30 @@ export default class Scene extends Events {
     this.emit('display-list-update');
   }
 
+  updateObjectMetadata(id, metadata) {
+    const index = this.getObjectIndex(id);
+    const object = this.displayList[index];
+
+    const newObject = {
+      ...object,
+      ...metadata,
+      id: object.id,
+      component: object.component,
+      props: object.props,
+    };
+
+    this.displayList[index] = newObject;
+    this.emit('display-list-update');
+  }
+
   draw() {
     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
     this.displayList.forEach((displayObject) => {
       const props = displayObject.props;
-      const skipDrawingToMainCanvas = props.width !== 0 && props.height !== 0;
+      const widthOrHeightIsZero = props.width === 0 || props.height === 0;
+
+      const shouldDrawToMainCanvas = displayObject.visible && !widthOrHeightIsZero;
 
       // Draw onto a "buffer" instead of the main canvas.
       const bufferCanvas = document.createElement('canvas');
@@ -170,26 +188,26 @@ export default class Scene extends Events {
       bufferContext.canvas.width = props.width;
       bufferContext.canvas.height = props.height;
 
-      try {
-        displayObject.component.draw({
-          context: bufferContext,
-          ...props,
+      if (shouldDrawToMainCanvas) {
+        try {
+          displayObject.component.draw({
+            context: bufferContext,
+            ...props,
 
-          // Position will be managed by Scene when drawing to buffer.
-          x: 0,
-          y: 0
-        });
-      } catch (err) {
-        this.context.font = '16px Arial';
-        this.context.fillText(
-          'Component error! See console.',
-          props.x + 50,
-          props.y + 50
-        );
-        console.error(err);
-      }
+            // Position will be managed by Scene when drawing to buffer.
+            x: 0,
+            y: 0
+          });
+        } catch (err) {
+          this.context.font = '16px Arial';
+          this.context.fillText(
+            'Component error! See console.',
+            props.x + 50,
+            props.y + 50
+          );
+          console.error(err);
+        }
 
-      if (skipDrawingToMainCanvas) {
         this.context.drawImage(bufferCanvas, props.x, props.y);
       }
     });
