@@ -138,19 +138,22 @@ export default function HomeScreen() {
       <div className="layers">
         <div>
           <button onClick={handleAddOnClick.bind(null, 'rectangle')}>
-            Add Rectangle
+            Rectangle
           </button>
           <button onClick={handleAddOnClick.bind(null, 'circle')}>
-            Add Circle
+            Circle
           </button>
           <button onClick={handleAddOnClick.bind(null, 'spiral')}>
-            Add Spiral
+            Spiral
           </button>
           <button onClick={handleAddOnClick.bind(null, 'grid')}>
-            Add Grid
+            Grid
           </button>
           <button onClick={handleAddOnClick.bind(null, 'image')}>
-            Add Image
+            Image
+          </button>
+          <button onClick={handleAddOnClick.bind(null, 'fieldGrid')}>
+            Field Grid
           </button>
         </div>
         <ol className="layers__list">{list}</ol>

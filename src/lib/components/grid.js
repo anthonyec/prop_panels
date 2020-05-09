@@ -12,14 +12,14 @@ export default {
   draw: ({ context, x, y, width, height, color, rows, columns }) => {
     context.fillStyle = color;
 
-    const xSeg = width / columns;
-    const ySeg = height / rows;
+    // const xSeg = width / columns;
+    // const ySeg = height / rows;
 
-    for (let col = 0; col < columns; col++) {
+    for (let col = 0; col < columns + 1; col++) {
       for (let row = 0; row < rows; row++) {
         context.fillRect(
-          ((width + xSeg) / columns) * col,
-          ((height + ySeg) / rows) * row,
+          (width / columns) * col,
+          (height / rows) * row,
           2,
           2
         );
