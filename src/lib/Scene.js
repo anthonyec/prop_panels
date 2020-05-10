@@ -62,6 +62,7 @@ export default class Scene extends Events {
     this.canvas = props.canvas;
     this.context = props.canvas.getContext('2d');
     this.displayList = [];
+    this.buffers = { 'root': this.canvas };
 
     this.emit('init');
     this.update();
@@ -189,6 +190,24 @@ export default class Scene extends Events {
       bufferContext.canvas.width = props.width;
       bufferContext.canvas.height = props.height;
 
+      this.buffers[displayObject.id] = bufferCanvas;
+
+      // Resolve references.
+      const contextProps = displayObject.component.props.filter((prop) => {
+        return prop.type === 'context';
+      });
+
+      const contextPropIds = contextProps.map((contextProp) => {
+        return contextProp.id;
+      });
+
+      const contextPropsWithBuffers = contextPropIds.reduce((mem, prop) => {
+        const value = props[prop];
+        mem[prop] = this.buffers[value];
+
+        return mem;
+      }, {});
+
       if (shouldDrawToMainCanvas) {
         try {
           displayObject.component.draw({
@@ -197,7 +216,10 @@ export default class Scene extends Events {
 
             // Position will be managed by Scene when drawing to buffer.
             x: 0,
-            y: 0
+            y: 0,
+
+            // Any references to buffers will be replaced with real buffers.
+            ...contextPropsWithBuffers
           });
         } catch (err) {
           this.context.font = '16px Arial';

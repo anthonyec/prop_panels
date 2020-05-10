@@ -220,6 +220,9 @@ export default function HomeScreen() {
           <button onClick={handleAddOnClick.bind(null, 'fieldGrid')}>
             Field Grid
           </button>
+          <button onClick={handleAddOnClick.bind(null, 'repeater')}>
+            Repeater
+          </button>
         </div>
         <ol className="layers__list">{list}</ol>
       </div>

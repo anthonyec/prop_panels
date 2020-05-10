@@ -6,7 +6,13 @@ function calculateDiff(currentX, startX) {
   return Math.round(currentX - startX);
 }
 
-export default function TransformBox({ x = 0, y = 0, width = 0, height = 0, onDragMove = () => {} }) {
+export default function TransformBox({
+  x = 0,
+  y = 0,
+  width = 0,
+  height = 0,
+  onDragMove = () => {}
+}) {
   const [isMouseDown, setMouseDown] = useState(false);
   const [currentPositionX, setCurrentPositionX] = useState(x);
   const [currentPositionY, setCurrentPositionY] = useState(y);
@@ -39,7 +45,7 @@ export default function TransformBox({ x = 0, y = 0, width = 0, height = 0, onDr
       setCurrentWidth(width);
       setCurrentHeight(height);
     }
-  }, [isMouseDown, x, y, width, height])
+  }, [isMouseDown, x, y, width, height]);
 
   useEffect(() => {
     if (isMouseDown) {
