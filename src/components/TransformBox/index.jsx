@@ -68,8 +68,10 @@ export default function TransformBox() {
   };
 
   return (
-    <div style={style} className="TransformBox" onMouseDown={handleOnMouseDown}>
-      {isMouseDown ? 'down' : 'up'}
-    </div>
+    <div
+      style={style}
+      className="TransformBox"
+      onMouseDown={handleOnMouseDown}
+    />
   );
 }
