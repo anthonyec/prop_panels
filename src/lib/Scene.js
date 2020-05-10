@@ -1,41 +1,8 @@
 import Events from './Events';
 
-function uidGenerator() {
-  let uid = 0;
-
-  return () => {
-    uid += 1;
-
-    return uid;
-  };
-}
-
-function getPropsAsArguments(props) {
-  let args = {};
-
-  props.forEach((prop) => {
-    args[prop.id] = prop.default;
-  });
-
-  return args;
-}
-
-function arrayMove(arr, old_index, new_index) {
-  while (old_index < 0) {
-    old_index += arr.length;
-  }
-  while (new_index < 0) {
-    new_index += arr.length;
-  }
-  if (new_index >= arr.length) {
-    var k = new_index - arr.length + 1;
-    while (k--) {
-      arr.push(undefined);
-    }
-  }
-  arr.splice(new_index, 0, arr.splice(old_index, 1)[0]);
-  return arr; // for testing purposes
-}
+import getPropsAsArguments from './utils/getPropsAsArguments';
+import arrayMove from './utils/arrayMove';
+import uidGenerator from './utils/uidGenerator';
 
 export default class Scene extends Events {
   constructor(props = { canvas: null }) {
@@ -112,6 +79,10 @@ export default class Scene extends Events {
       ...this.displayList.slice(0, index),
       ...this.displayList.slice(index + 1)
     ];
+
+    if (this.buffers[objectId]) {
+      delete this.buffers[objectId];
+    }
 
     this.emit('display-list-update');
   }
@@ -258,6 +229,7 @@ export default class Scene extends Events {
   }
 
   update() {
+    console.log(this.buffers);
     this.resizeCanvas();
     this.draw();
     this.emit('update');
