@@ -6,12 +6,14 @@ function calculateDiff(currentX, startX) {
   return Math.round(currentX - startX);
 }
 
-export default function TransformBox() {
+export default function TransformBox({ x = 0, y = 0, width = 0, height = 0, onDragMove = () => {} }) {
   const [isMouseDown, setMouseDown] = useState(false);
-  const [currentPositionX, setCurrentPositionX] = useState(0);
-  const [currentPositionY, setCurrentPositionY] = useState(0);
-  const [positionX, setPositionX] = useState(0);
-  const [positionY, setPositionY] = useState(0);
+  const [currentPositionX, setCurrentPositionX] = useState(x);
+  const [currentPositionY, setCurrentPositionY] = useState(y);
+  const [positionX, setPositionX] = useState(x);
+  const [positionY, setPositionY] = useState(y);
+  const [currentWidth, setCurrentWidth] = useState(width);
+  const [currentHeight, setCurrentHeight] = useState(height);
   const [startX, setStartX] = useState(0);
   const [startY, setStartY] = useState(0);
   const [currentX, setCurrentX] = useState(0);
@@ -28,12 +30,28 @@ export default function TransformBox() {
   }, []);
 
   useEffect(() => {
+    if (!isMouseDown) {
+      // TODO: Better way to do this?
+      setPositionX(x);
+      setPositionY(y);
+      setCurrentPositionX(x);
+      setCurrentPositionY(y);
+      setCurrentWidth(width);
+      setCurrentHeight(height);
+    }
+  }, [isMouseDown, x, y, width, height])
+
+  useEffect(() => {
     if (isMouseDown) {
       const diffX = calculateDiff(currentX, startX);
       const diffY = calculateDiff(currentY, startY);
+      const newX = positionX + diffX;
+      const newY = positionY + diffY;
 
-      setCurrentPositionX(positionX + diffX);
-      setCurrentPositionY(positionY + diffY);
+      setCurrentPositionX(newX);
+      setCurrentPositionY(newY);
+
+      onDragMove(newX, newY);
     }
   }, [currentX, currentY]);
 
@@ -63,8 +81,9 @@ export default function TransformBox() {
   };
 
   const style = {
-    left: currentPositionX,
-    top: currentPositionY
+    width: currentWidth,
+    height: currentHeight,
+    transform: `translate(${currentPositionX}px, ${currentPositionY}px)`
   };
 
   return (

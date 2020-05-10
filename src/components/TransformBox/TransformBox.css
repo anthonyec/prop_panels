@@ -4,4 +4,6 @@
   height: 100px;
   position: absolute;
   user-select: none;
+  top: 0;
+  left: 0;
 }

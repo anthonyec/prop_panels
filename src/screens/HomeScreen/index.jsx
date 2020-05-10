@@ -13,7 +13,8 @@ import {
   selectObjectAtPoint,
   reorderObject,
   removeObject,
-  updateObjectMetadata
+  updateObjectMetadata,
+  updateObjectProp
 } from '../../store/scene';
 
 import './HomeScreen.css';
@@ -186,6 +187,21 @@ export default function HomeScreen() {
     </div>
   ) : null;
 
+  // const handleOnDragMove = (x, y) => {
+  //   // console.log(x, y, selectedObjects);
+  //   // TODO: Combine into single prop update.
+  //   dispatch(updateObjectProp(selectedObjects[0].id, { id: 'x', value: x }));
+  //   dispatch(updateObjectProp(selectedObjects[0].id, { id: 'y', value: y }));
+  // };
+
+  // const selection = selectedBounds ? <TransformBox
+  //   x={selectedBounds.x}
+  //   y={selectedBounds.y}
+  //   width={selectedBounds.width}
+  //   height={selectedBounds.height}
+  //   onDragMove={handleOnDragMove}
+  // /> : null;
+
   return (
     <main className="HomeScreen">
       <div className="layers">
@@ -219,13 +235,12 @@ export default function HomeScreen() {
           />
           {selections}
           {selection}
-          <TransformBox />
         </div>
       </div>
 
-      {/* <div className="propertyPanel">
+      <div className="propertyPanel">
         <PropsPanel />
-      </div> */}
+      </div>
     </main>
   );
 }
