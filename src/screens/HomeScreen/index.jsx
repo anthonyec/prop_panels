@@ -17,6 +17,7 @@ import {
 } from '../../store/scene';
 
 import './HomeScreen.css';
+import TransformBox from '../../components/TransformBox';
 
 function selectSelectedObjects(state) {
   return state.scene.selected.map((id) => {
@@ -213,17 +214,18 @@ export default function HomeScreen() {
             className="workspace__canvas"
             onClick={handleCanvasClick}
             ref={canvasRef}
-            width={800}
-            height={600}
+            width={500}
+            height={400}
           />
           {selections}
           {selection}
+          <TransformBox />
         </div>
       </div>
 
-      <div className="propertyPanel">
+      {/* <div className="propertyPanel">
         <PropsPanel />
-      </div>
+      </div> */}
     </main>
   );
 }
