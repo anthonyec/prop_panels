@@ -5,5 +5,7 @@ import grid from './grid';
 import image from './image';
 import fieldGrid from './fieldGrid';
 import repeater from './repeater';
+import stretcher from './stretcher';
+import text from './text';
 
-export { rectangle, circle, spiral, grid, image, fieldGrid, repeater };
+export { rectangle, circle, spiral, grid, image, fieldGrid, repeater, stretcher, text };

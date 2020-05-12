@@ -223,6 +223,12 @@ export default function HomeScreen() {
           <button onClick={handleAddOnClick.bind(null, 'repeater')}>
             Repeater
           </button>
+          <button onClick={handleAddOnClick.bind(null, 'stretcher')}>
+            Stretcher
+          </button>
+          <button onClick={handleAddOnClick.bind(null, 'text')}>
+            Text
+          </button>
         </div>
         <ol className="layers__list">{list}</ol>
       </div>
