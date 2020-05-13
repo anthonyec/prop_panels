@@ -29,7 +29,7 @@ export default class Scene extends Events {
     this.canvas = props.canvas;
     this.context = props.canvas.getContext('2d');
     this.displayList = [];
-    this.buffers = { 'root': this.canvas };
+    this.buffers = { root: this.canvas };
 
     this.emit('init');
     this.update();
@@ -185,10 +185,6 @@ export default class Scene extends Events {
             context: bufferContext,
             ...props,
 
-            // Position will be managed by Scene when drawing to buffer.
-            x: 0,
-            y: 0,
-
             // Any references to buffers will be replaced with real buffers.
             ...contextPropsWithBuffers
           });
@@ -229,7 +225,7 @@ export default class Scene extends Events {
   }
 
   update() {
-    console.log(this.buffers);
+    // console.log(this.buffers);
     this.resizeCanvas();
     this.draw();
     this.emit('update');

@@ -21,12 +21,12 @@ export default {
     tileX,
     tileY,
     tileWidth,
-    tileHeight,
+    tileHeight
   }) => {
     const multiplierX = Math.floor(tileX / tileWidth);
     const multiplierY = Math.floor(tileY / tileHeight);
-    const offsetX = tileX - (tileWidth * multiplierX);
-    const offsetY = tileY - (tileHeight * multiplierY);
+    const offsetX = tileX - tileWidth * multiplierX;
+    const offsetY = tileY - tileHeight * multiplierY;
 
     const cols = Math.ceil(width / tileWidth);
     const rows = Math.ceil(height / tileHeight);
@@ -34,10 +34,10 @@ export default {
     context.fillStyle = fill;
     context.fillRect(0, 0, width, height);
 
-    for (let col =-1; col < cols; col++) {
+    for (let col = -1; col < cols; col++) {
       for (let row = -1; row < rows; row++) {
-        const cloneX = offsetX + (tileWidth * col);
-        const cloneY = offsetY + (tileHeight * row);
+        const cloneX = offsetX + tileWidth * col;
+        const cloneY = offsetY + tileHeight * row;
 
         if (!reference) {
           context.strokeRect(cloneX, cloneY, tileWidth, tileHeight);

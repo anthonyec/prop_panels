@@ -10,14 +10,7 @@ export default {
     { id: 'referenceA', type: 'context' },
     { id: 'referenceB', type: 'context' }
   ],
-  draw: ({
-    context,
-    width,
-    height,
-    percent,
-    referenceA,
-    referenceB
-  }) => {
+  draw: ({ context, width, height, percent, referenceA, referenceB }) => {
     const stetchPosition = width * percent;
 
     context.font = '16px Arial';
@@ -30,10 +23,20 @@ export default {
     }
 
     if (referenceB) {
-      context.drawImage(referenceB, stetchPosition, 0, width - stetchPosition, height);
+      context.drawImage(
+        referenceB,
+        stetchPosition,
+        0,
+        width - stetchPosition,
+        height
+      );
     } else {
       context.strokeRect(stetchPosition, 0, width - stetchPosition, height);
-      context.fillText('b', stetchPosition + ((width - stetchPosition) / 2), height / 2);
+      context.fillText(
+        'b',
+        stetchPosition + (width - stetchPosition) / 2,
+        height / 2
+      );
     }
   }
 };

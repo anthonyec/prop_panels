@@ -82,8 +82,8 @@ export function initializeScene(canvas) {
 export function addObjectToScene(name) {
   return async (dispatch, getState, { scene, components }) => {
     const newObject = await scene.add(components[name], {
-      x: Math.floor(Math.random() * 300),
-      y: Math.floor(Math.random() * 300)
+      x: 0,
+      y: 0
     });
 
     dispatch(singleSelectObject(newObject.id));

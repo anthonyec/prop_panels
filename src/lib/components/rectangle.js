@@ -9,6 +9,6 @@ export default {
   ],
   draw: ({ context, x, y, width, height, color }) => {
     context.fillStyle = color;
-    context.fillRect(x, y, width, height);
+    context.fillRect(0, 0, width, height);
   }
 };

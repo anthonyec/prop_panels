@@ -6,15 +6,9 @@ export default {
     { id: 'width', type: 'number', default: 300 },
     { id: 'height', type: 'number', default: 16 },
     { id: 'fontSize', type: 'number', default: 16 },
-    { id: 'text', type: 'string', default: 'Hello world' },
+    { id: 'text', type: 'string', default: 'Hello world' }
   ],
-  draw: ({
-    context,
-    width,
-    height,
-    fontSize,
-    text
-  }) => {
+  draw: ({ context, width, height, fontSize, text }) => {
     let x = 0;
     let y = 0;
 
@@ -43,7 +37,7 @@ export default {
       y + textMetrics.actualBoundingBoxDescent
     );
     context.closePath();
-    context.stroke();
+    // context.stroke();
 
     context.fillText(text, x, y);
   }

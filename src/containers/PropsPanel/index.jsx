@@ -25,12 +25,21 @@ export default function PropsPanel() {
     const props = object.component.props;
 
     const propComponents = props.map((prop) => {
+      let type = prop.type;
+
+      if (prop.min !== undefined && prop.max !== undefined) {
+        type = 'range';
+      }
+
       return (
         <div className="props__field" key={prop.id}>
           <label htmlFor={prop.id}>{prop.id}</label>
           <input
             id={prop.id}
-            type={prop.type}
+            type={type}
+            min={prop.min}
+            max={prop.max}
+            step={0.01}
             defaultValue={object.props[prop.id]}
             onChange={handlePropValueUpdate.bind(null, prop, object)}
           />

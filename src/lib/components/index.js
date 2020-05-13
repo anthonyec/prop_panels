@@ -7,5 +7,17 @@ import fieldGrid from './fieldGrid';
 import repeater from './repeater';
 import stretcher from './stretcher';
 import text from './text';
+import ripple from './ripple';
 
-export { rectangle, circle, spiral, grid, image, fieldGrid, repeater, stretcher, text };
+export {
+  rectangle,
+  circle,
+  spiral,
+  grid,
+  image,
+  fieldGrid,
+  repeater,
+  stretcher,
+  text,
+  ripple
+};
