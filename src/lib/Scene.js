@@ -185,6 +185,9 @@ export default class Scene extends Events {
             context: bufferContext,
             ...props,
 
+            x: 0,
+            y: 0,
+
             // Any references to buffers will be replaced with real buffers.
             ...contextPropsWithBuffers
           });
